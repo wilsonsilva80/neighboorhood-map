@@ -1,0 +1,50 @@
+[{
+        "title": "Castelo de S. Jorge",
+        "position": {
+            "latitude": 38.714283235913115,
+            "longitude": -9.133414282495096
+        }
+    },
+    {
+        "title": "Panteão Nacional",
+        "position": {
+            "latitude": 38.71535477186493,
+            "longitude": -9.12457372158201
+        }
+    },
+    {
+        "title": "Mosteiro dos Jerónimos",
+        "position": {
+            "latitude": 38.69861018733478,
+            "longitude": -9.206627859765604
+        }
+    },
+    {
+        "title": "Torre de Belém",
+        "position": {
+            "latitude": 38.69231320915264,
+            "longitude": -9.21572591274412
+        }
+    },
+    {
+        "title": "Parque Eduardo VII de Inglaterra",
+        "position": {
+            "latitude": 38.729149362409856,
+            "longitude": -9.15255452602537
+        }
+    },
+    {
+        "title": "Jardim Zoológico de Lisboa",
+        "position": {
+            "latitude": 38.745083486263965,
+            "longitude": -9.170407309228494
+        }
+    },
+    {
+        "title": "Palácio Fronteira",
+        "position": {
+            "latitude": 38.740799029290606,
+            "longitude": -9.180192007714822
+        }
+    }
+]
