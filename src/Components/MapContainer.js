@@ -3,7 +3,7 @@ import MarkerList from './MarkerList'
 /* global google */
 const createMapScript = () => {
     let el = document.createElement("SCRIPT");
-    el.src = "https://maps.googleapis.com/maps/api/js?key=API_KEY&v=3&callback=initMap";
+    el.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyByH0c5bxYDZ48BLQ401BBsm4DppG6QNkQ&v=3&callback=initMap";
     el.async = true;
     // el.defer = true;
     document.body.appendChild(el);
@@ -22,8 +22,7 @@ class MapContainer extends Component {
     state = {
         map: {},
         bounds: '',
-        largeInfowindow: '',
-        google: ''
+        largeInfowindow: ''
     }
 
     componentDidMount(){
@@ -35,7 +34,7 @@ class MapContainer extends Component {
 
         var node = document.getElementById('map')
 
-        let zoom = 13;
+        let zoom = 12;
         let lat = 38.745083486263965;
         let lng = -9.170407309228494;
         const center = new google.maps.LatLng(lat, lng);
@@ -52,8 +51,7 @@ class MapContainer extends Component {
         this.setState({
             map,
             bounds: this.bounds,
-            largeInfowindow: this.largeInfoWindow,
-            google: google
+            largeInfowindow: this.largeInfoWindow
         })
 
     }
@@ -77,6 +75,7 @@ class MapContainer extends Component {
                 bounds={this.state.bounds}
                 largeInfoWindow={this.state.largeInfowindow}
                 google={window.google}
+                obj={obj}
             />
 
             </React.Fragment>
