@@ -44,37 +44,31 @@ class MapContainer extends Component {
         });
 
         //instance of Bounds
-        this.bounds = new google.maps.LatLngBounds();
+        // this.bounds = new google.maps.LatLngBounds();
         //instance of infowindow
         this.largeInfoWindow = new google.maps.InfoWindow();
-        console.log('mapinit map: ' + map)
+        // console.log('mapinit map: ' + map)
         this.setState({
             map,
-            bounds: this.bounds,
-            largeInfowindow: this.largeInfoWindow
+            // bounds: this.bounds,
+            largeInfowindow: this.largeInfoWindow,
+            obj: require("../Locations.json")
         })
 
     }
 
     render() {
         var obj = require("../Locations.json");
-        console.log('render map: ' + window.google)
-
-        let position = obj[0].position;
-        let title = obj[0].title;
-        console.log(obj[0].position)
+        // console.log('render map: ' + window.google)
 
         return(
             <React.Fragment>
 
             <div id="map" />
             <MarkerList
-                position={position}
-                title={title}
-                map={this.state.map}
-                bounds={this.state.bounds}
-                largeInfoWindow={this.state.largeInfowindow}
                 google={window.google}
+                map={this.state.map}
+                largeInfoWindow={this.state.largeInfowindow}
                 obj={obj}
             />
 
