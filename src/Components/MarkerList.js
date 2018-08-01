@@ -6,6 +6,7 @@ class MarkerList extends Component {
         super(props);
 
         this.locationMarkers = this.locationMarkers.bind(this);
+        this.updateMarkers = this.updateMarkers.bind(this);
     }
 
     state = {
@@ -13,25 +14,51 @@ class MarkerList extends Component {
     }
 
     static propTypes = {
-         obj: PropTypes.array.isRequired
+         filteredLocations: PropTypes.array.isRequired
     }
 
     componentDidUpdate(prevProps, prevState) {
+        if (prevProps.filteredLocations !== this.props.filteredLocations){
+            const obj = this.props.filteredLocations;
+            obj.forEach((location) => {
+                this.updateMarkers(location);
+            });
+        }
         if (prevProps.google !== this.props.google) {
+            this.setState({
+                markerLocations: []
+            })
             //iterate through locations to place the markers
-            let obj = this.props.obj;
+            const obj = this.props.filteredLocations;
             obj.forEach((location, index) => {
                 this.locationMarkers(location, index);
             });
+
         }
+    }
+
+    updateMarkers = (location) => {
+        let markersArr = this.state.markerLocations;
+        let { map } = this.props;
+        let { title, position, visible } = location;
+        markersArr.forEach((marker) => {
+            if(marker.title === title) {
+                visible === true ? marker.setMap(map) : marker.setMap(null);
+            }
+        });
+
     }
 
 
     // TODO: make fetch from API to put into infoWindow, rn infowindow is working
+    // Client ID
+    // 3CRHDHCHBIAI0NX0NQD1YWPWG3K3IFNHB4WJVVTGCF415XYQ
+    // Client Secret
+    // AO5T05WRIZ03B13XVISXHSA0T530B5FTT2CB1DFMFX5CC04K
     locationMarkers = (locations, index) => {
-        let markersArr = this.state.markerLocations
+        let markersArr = this.state.markerLocations;
         let { google, map, largeInfoWindow } = this.props;
-        let { title, position } = locations;
+        let { title, position, visible } = locations;
 
         position = new window.google.maps.LatLng(position.latitude, position.longitude);
         //Create a marker per location, and put into markersArr state.
@@ -55,7 +82,7 @@ class MarkerList extends Component {
                 setTimeout(() => {
                     marker.setAnimation(null);
                 }, 1400);
-                largeInfoWindow.setContent('<div>' + marker.title + '</div>');
+                    largeInfoWindow.setContent('<div>' + marker.title + '</div>');
                 largeInfoWindow.open(map, marker);
             }
         })(marker));

@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import MarkerList from './MarkerList'
+import escapeRegExp from 'escape-string-regexp'
+// import sortBy from 'sort-by'
+
 /* global google */
 const createMapScript = () => {
     let el = document.createElement("SCRIPT");
@@ -8,8 +11,6 @@ const createMapScript = () => {
     // el.defer = true;
     document.body.appendChild(el);
 }
-
-
 
 class MapContainer extends Component {
 
@@ -21,14 +22,16 @@ class MapContainer extends Component {
 
     state = {
         map: {},
-        bounds: '',
-        largeInfowindow: ''
+        largeInfowindow: '',
+        query: '',
+        filteredLocations: require("../Locations.json")
     }
 
     componentDidMount(){
         window.initMap = this.initMap;
         createMapScript();
     }
+
 
     initMap() {
 
@@ -52,24 +55,62 @@ class MapContainer extends Component {
             map,
             // bounds: this.bounds,
             largeInfowindow: this.largeInfoWindow,
-            obj: require("../Locations.json")
         })
 
     }
 
+    updateQuery = (query) => {
+        let trimmedQuery = query.replace(/^\s+/, '')
+        this.setState({
+            query: trimmedQuery
+        })
+    }
+
+
     render() {
-        var obj = require("../Locations.json");
         // console.log('render map: ' + window.google)
+// TODO: close/open the search bar
+//         map: {},
+        // largeInfowindow: '',
+        // query: '',
+        // filteredLocations: require("../
+        const { map, largeInfowindow, query, filteredLocations } = this.state
+        let showingMarkers
+        if(query) {
+            const match = new RegExp(escapeRegExp(query), 'i')//use special characters as string literal
+            // showingMarkers = filteredLocations.filter((location) => match.test(location.title))
+            showingMarkers = filteredLocations.map((location) => {
+                if(match.test(location.title)) {
+                    location.visible = true;
+                } else {
+                    location.visible = false;
+                }
+                return location;
+            })
+        } else {
+            showingMarkers = filteredLocations.map((location) => {
+                location.visible = true;
+                return location;
+            })
+        }
+
 
         return(
             <React.Fragment>
 
+                <div id="nav-bar">
+                    <input
+                        type="text"
+                        value={this.state.query}
+                        onChange={(event) => this.updateQuery(event.target.value)}
+                        placeholder="Search here" />
+                </div>
             <div id="map" />
             <MarkerList
                 google={window.google}
-                map={this.state.map}
-                largeInfoWindow={this.state.largeInfowindow}
-                obj={obj}
+                map={map}
+                largeInfoWindow={largeInfowindow}
+                filteredLocations={showingMarkers}
             />
 
             </React.Fragment>
