@@ -22,7 +22,6 @@ class MapContainer extends Component {
 
     state = {
         map: {},
-        largeInfowindow: '',
         query: '',
         filteredLocations: require("../Locations.json")
     }
@@ -49,14 +48,13 @@ class MapContainer extends Component {
         //instance of Bounds
         // this.bounds = new google.maps.LatLngBounds();
         //instance of infowindow
-        this.largeInfoWindow = new google.maps.InfoWindow();
+        // this.largeInfoWindow = new google.maps.InfoWindow();
         // console.log('mapinit map: ' + map)
         this.setState({
-            map,
+            map
             // bounds: this.bounds,
-            largeInfowindow: this.largeInfoWindow,
+            // largeInfowindow: this.largeInfoWindow,
         })
-
     }
 
     updateQuery = (query) => {
@@ -68,17 +66,12 @@ class MapContainer extends Component {
 
 
     render() {
-        // console.log('render map: ' + window.google)
-// TODO: close/open the search bar
-//         map: {},
-        // largeInfowindow: '',
-        // query: '',
-        // filteredLocations: require("../
-        const { map, largeInfowindow, query, filteredLocations } = this.state
+        // TODO: close/open the search bar
+
+        const { map, query, filteredLocations } = this.state
         let showingMarkers
         if(query) {
             const match = new RegExp(escapeRegExp(query), 'i')//use special characters as string literal
-            // showingMarkers = filteredLocations.filter((location) => match.test(location.title))
             showingMarkers = filteredLocations.map((location) => {
                 if(match.test(location.title)) {
                     location.visible = true;
@@ -97,7 +90,6 @@ class MapContainer extends Component {
 
         return(
             <React.Fragment>
-
                 <div id="nav-bar">
                     <input
                         type="text"
@@ -105,19 +97,19 @@ class MapContainer extends Component {
                         onChange={(event) => this.updateQuery(event.target.value)}
                         placeholder="Search here" />
                 </div>
+                <div id="filter-locations">
+                    <ul id="filter-this">
+                    </ul>
+                </div>
             <div id="map" />
             <MarkerList
                 google={window.google}
                 map={map}
-                largeInfoWindow={largeInfowindow}
                 filteredLocations={showingMarkers}
             />
-
             </React.Fragment>
-
         )
     }
-
 }
 
 export default MapContainer
