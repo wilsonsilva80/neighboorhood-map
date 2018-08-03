@@ -10,7 +10,8 @@ class FilterList extends Component {
     }
 
     static propTypes = {
-         filteredLocations: PropTypes.array.isRequired
+         filteredLocations: PropTypes.array.isRequired,
+         clickItem: PropTypes.func.isRequired
     }
 
     componentDidUpdate(prevProps) {
@@ -21,6 +22,7 @@ class FilterList extends Component {
     }
 
     listItems = (father) => {
+        const { clickItem } = this.props;
         while (father.firstChild) {
             father.removeChild(father.firstChild);
         }
@@ -29,6 +31,8 @@ class FilterList extends Component {
             if(item.visible) {
                 let el = document.createElement("li");
                 el.textContent = item.title;
+                el.id = item.title;
+                el.onclick = function (e) { clickItem(e.target.textContent)}
                 father.appendChild(el);
             }
         })

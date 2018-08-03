@@ -6,9 +6,9 @@ class MarkerList extends Component {
     constructor(props) {
         super(props);
 
-        // this.closeAllInfoWindows = this.closeAllInfoWindows.bind(this);
         this.locationMarkers = this.locationMarkers.bind(this);
         this.updateMarkers = this.updateMarkers.bind(this);
+        this.listClicked = this.listClicked.bind(this);
     }
 
     state = {
@@ -112,10 +112,23 @@ class MarkerList extends Component {
         // map.fitBounds(this.bounds);
     }
 
+    //adapted from https://stackoverflow.com/a/2731781
+    listClicked = (value) => {
+        let { markerLocations } = this.state;
+        let { google } = this.props;
+        const el = markerLocations.filter((marker) => {
+            return value === marker.title;
+        });
+
+        google.maps.event.trigger(el[0], 'click');
+    }
+
 
     render() {
         return (
-            <FilterList filteredLocations={this.props.filteredLocations}/>
+            <FilterList
+                filteredLocations={this.props.filteredLocations}
+                clickItem={this.listClicked}/>
         )
     }
 
