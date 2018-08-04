@@ -96,7 +96,9 @@ class MarkerList extends Component {
                     arr[0].location.formattedAddress.forEach((address) => {
                         content += address + '<br />';
                     });
-                    infowindow.setContent('<div>' + content + '</div>');                });
+                    content += '<br />data from foursquare.com'
+                    infowindow.setContent('<div>' + content + '</div>');
+                });
             } else {
                 alert("Couldn't fetch data from foursquare");
             }
