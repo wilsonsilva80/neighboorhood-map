@@ -1,5 +1,5 @@
 [{
-        "title": "Castelo de S. Jorge",
+        "title": "Castelo de São Jorge",
         "position": {
             "latitude": 38.7139092,
             "longitude": -9.133476200000018
@@ -31,7 +31,7 @@
         "visible": true
     },
     {
-        "title": "Parque Eduardo VII de Inglaterra",
+        "title": "Parque Eduardo VII",
         "position": {
             "latitude": 38.7283001,
             "longitude": -9.152682899999945
@@ -47,7 +47,7 @@
         "visible": true
     },
     {
-        "title": "Palácio Fronteira",
+        "title": "Palácio dos Marqueses de Fronteira",
         "position": {
             "latitude": 38.7403116,
             "longitude": -9.18039269999997

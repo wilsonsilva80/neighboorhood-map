@@ -91,11 +91,12 @@ class MapContainer extends Component {
         return(
             <React.Fragment>
                 <div id="nav-bar">
+                    My Neighboorhood Map 
                     <input
                         type="text"
                         value={this.state.query}
                         onChange={(event) => this.updateQuery(event.target.value)}
-                        
+
                         placeholder="Search here" />
                 </div>
                 <div id="filter-locations">

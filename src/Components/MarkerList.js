@@ -59,12 +59,6 @@ class MarkerList extends Component {
         });
     }
 
-
-    // TODO: make fetch from API to put into infoWindow, rn infowindow is working
-    // Client ID
-    // 3CRHDHCHBIAI0NX0NQD1YWPWG3K3IFNHB4WJVVTGCF415XYQ
-    // Client Secret
-    // AO5T05WRIZ03B13XVISXHSA0T530B5FTT2CB1DFMFX5CC04K
     locationMarkers = (locations, index) => {
         let { markerLocations, infoWindows } = this.state;
         let { google, map } = this.props;
@@ -79,10 +73,36 @@ class MarkerList extends Component {
             title: title,
             animation: google.maps.Animation.DROP
         });
-
         let infowindow = new google.maps.InfoWindow();
-        infowindow.setContent('<div>' + marker.title + '</div>');
 
+        const clientID = '3CRHDHCHBIAI0NX0NQD1YWPWG3K3IFNHB4WJVVTGCF415XYQ';
+        const clientSecret = 'AO5T05WRIZ03B13XVISXHSA0T530B5FTT2CB1DFMFX5CC04K';
+        let url = 'https://api.foursquare.com/v2/venues/search?' +
+        'll=' + marker.getPosition().lat() + //latitude
+        ',' + marker.getPosition().lng() + //longitude
+        '&client_id=' + clientID +
+        '&client_secret=' + clientSecret +
+        '&v=20180804' + //date
+        '&limit=5'
+        fetch(url).then((response) => {
+            if(response.status === 200) {
+                response.json().then((res) => {
+                    var arr = res.response.venues.filter((venue) => {
+                        let str = venue.name;
+                        return str.indexOf(marker.title) !== -1;
+                    })
+                    let title = arr[0].name;
+                    var content = title + '<br /> <br />';
+                    arr[0].location.formattedAddress.forEach((address) => {
+                        content += address + '<br />';
+                    });
+                    infowindow.setContent('<div>' + content + '</div>');                });
+            } else {
+                alert("Couldn't fetch data from foursquare");
+            }
+        }).catch((error) => {
+            alert("Couldn't fetch data from foursquare");
+        })
 
         markerLocations.push(marker);
         infoWindows.push(infowindow);
@@ -114,6 +134,7 @@ class MarkerList extends Component {
 
     //adapted from https://stackoverflow.com/a/2731781
     listClicked = (value) => {
+        // this.fetchData();
         let { markerLocations } = this.state;
         let { google } = this.props;
         const el = markerLocations.filter((marker) => {
