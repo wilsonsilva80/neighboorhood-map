@@ -95,6 +95,7 @@ class MapContainer extends Component {
                         type="text"
                         value={this.state.query}
                         onChange={(event) => this.updateQuery(event.target.value)}
+                        
                         placeholder="Search here" />
                 </div>
                 <div id="filter-locations">

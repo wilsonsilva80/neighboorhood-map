@@ -32,10 +32,11 @@ class FilterList extends Component {
                 let el = document.createElement("li");
                 el.textContent = item.title;
                 el.id = item.title;
+                el.tabIndex = 0;
                 el.onclick = function (e) { clickItem(e.target.textContent)}
                 father.appendChild(el);
             }
-        })
+        });
     }
 
     render() {

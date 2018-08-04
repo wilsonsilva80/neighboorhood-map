@@ -7,12 +7,84 @@ body {
     margin: 0px;
     padding: 0px;
 }
+
 #map {
-    height: 100vh;
+    height: 94vh;
     width: 100vw;
+    /* z-index: 1; */
 }
 
-/* @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-} */
+#nav-bar {
+    padding: 10px;
+    background-color: black;
+    height: 3vh;
+}
+
+#nav-bar input {
+    border-radius: 10px;
+    text-align: center;
+}
+
+#filter-locations {
+    position: fixed;
+    display: block;
+    width: 20vw;
+    height: 25vh;
+    top: 8vh;
+    left: 2vw;
+    background-color: rgb(64,64,64);
+    z-index: 2;
+    cursor: pointer;
+    padding-left: 20px;
+    border: 2px solid black;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#filter-this {
+    list-style-type: disc;
+    padding-left: 10px;
+    color: white;
+}
+
+#filter-this li:focus {
+    background: grey;
+}
+
+@media screen and (max-width: 1030px) {
+    #filter-locations {
+        width: 25vw;
+    }
+}
+@media screen and (min-width: 600px) and (max-width: 900px) {
+    #filter-locations {
+        height: 28vh;
+        width: 25vw;
+        padding-left: 0;
+    }
+    #filter-this {
+        margin-top: 5px;
+    }
+}
+
+@media screen and (min-width: 500px) and (max-width: 599px) {
+    #filter-locations {
+        padding-left: 0;
+        height: 30vh;
+        width: 30vw;
+    }
+    #filter-this {
+        margin-top: 5px;
+    }
+}
+
+@media screen and (max-width: 499px) {
+    #filter-locations {
+        padding-left: 0;
+        height: 45vh;
+        width: 42vw;
+    }
+    #filter-this {
+        margin-top: 5px;
+    }
+}
