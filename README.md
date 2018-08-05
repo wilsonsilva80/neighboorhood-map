@@ -11,8 +11,8 @@
 You can download and use it locally by downloading or cloning this repository
 * navigate to the respective folder
 * install all project dependencies with `npm install`
-    * to start the development server with `npm start`
-    * to start the production server with `npm run build`
+    * start the development server with `npm start`
+    * start the production server with `npm run build`
 
 ## Features
 
