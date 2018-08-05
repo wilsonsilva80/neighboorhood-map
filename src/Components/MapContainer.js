@@ -7,6 +7,9 @@ const createMapScript = () => {
     let el = document.createElement("SCRIPT");
     el.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyByH0c5bxYDZ48BLQ401BBsm4DppG6QNkQ&v=3&callback=initMap";
     el.async = true;
+    el.onerror = function() {
+        alert("google maps didn't load for some reason");
+    }
     document.body.appendChild(el);
 }
 
@@ -80,6 +83,7 @@ class MapContainer extends Component {
                         type="text"
                         value={this.state.query}
                         onChange={(event) => this.updateQuery(event.target.value)}
+                        aria-label="Filter locations"
                         role="search"
                         placeholder="Search here" />
                 </div>
@@ -89,7 +93,7 @@ class MapContainer extends Component {
                         aria-label="locations list">
                     </ul>
                 </div>
-            <div id="map" />
+            <div id="map" role="map" />
             <MarkerList
                 google={window.google}
                 map={map}
