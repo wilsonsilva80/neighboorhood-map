@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import MarkerList from './MarkerList'
 import escapeRegExp from 'escape-string-regexp'
-// import sortBy from 'sort-by'
-
 /* global google */
+
 const createMapScript = () => {
     let el = document.createElement("SCRIPT");
     el.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyByH0c5bxYDZ48BLQ401BBsm4DppG6QNkQ&v=3&callback=initMap";
     el.async = true;
-    // el.defer = true;
     document.body.appendChild(el);
 }
 
@@ -31,11 +29,8 @@ class MapContainer extends Component {
         createMapScript();
     }
 
-
     initMap() {
-
         var node = document.getElementById('map')
-
         let zoom = 12;
         let lat = 38.745083486263965;
         let lng = -9.170407309228494;
@@ -44,17 +39,9 @@ class MapContainer extends Component {
             center: center,
             zoom: zoom
         });
-
-        //instance of Bounds
-        // this.bounds = new google.maps.LatLngBounds();
-        //instance of infowindow
-        // this.largeInfoWindow = new google.maps.InfoWindow();
-        // console.log('mapinit map: ' + map)
         this.setState({
             map
-            // bounds: this.bounds,
-            // largeInfowindow: this.largeInfoWindow,
-        })
+        });
     }
 
     updateQuery = (query) => {
@@ -66,8 +53,6 @@ class MapContainer extends Component {
 
 
     render() {
-        // TODO: close/open the search bar
-
         const { map, query, filteredLocations } = this.state
         let showingMarkers
         if(query) {
@@ -87,11 +72,10 @@ class MapContainer extends Component {
             })
         }
 
-
         return(
             <React.Fragment>
                 <div id="nav-bar">
-                    My Neighboorhood Map 
+                    My Neighboorhood Map
                     <input
                         type="text"
                         value={this.state.query}

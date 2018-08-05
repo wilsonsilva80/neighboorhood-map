@@ -42,13 +42,12 @@ class MarkerList extends Component {
         }
     }
 
-
-
+    //Update the markers on screen accordingly to the filter
     updateMarkers = (location) => {
         let { markerLocations, infoWindows } = this.state;
         let { map } = this.props;
         let { title, visible } = location;
-        // closeAllInfoWindows();
+        //Close all the infoWindows
             infoWindows.forEach((infowindow) => {
                 infowindow.close();
             });
@@ -59,6 +58,8 @@ class MarkerList extends Component {
         });
     }
 
+    //create the markers with the locations and populate the infowindows with
+    //the data fetched using the foursquare API
     locationMarkers = (locations, index) => {
         let { markerLocations, infoWindows } = this.state;
         let { google, map } = this.props;
@@ -82,8 +83,8 @@ class MarkerList extends Component {
         ',' + marker.getPosition().lng() + //longitude
         '&client_id=' + clientID +
         '&client_secret=' + clientSecret +
-        '&v=20180804' + //date
-        '&limit=5'
+        '&v=20180803' + //date
+        '&limit=5';
         fetch(url).then((response) => {
             if(response.status === 200) {
                 response.json().then((res) => {
@@ -91,12 +92,18 @@ class MarkerList extends Component {
                         let str = venue.name;
                         return str.indexOf(marker.title) !== -1;
                     })
-                    let title = arr[0].name;
-                    var content = title + '<br /> <br />';
-                    arr[0].location.formattedAddress.forEach((address) => {
-                        content += address + '<br />';
-                    });
-                    content += '<br />data from foursquare.com'
+                    var content = '';
+                    if(!arr[0]) {
+                        content = marker.title +
+                            "<br /> <br />  Couldn't fetch data from foursquare";
+                    } else {
+                        let title = arr[0].name;
+                        content = title + '<br /> <br />';
+                        arr[0].location.formattedAddress.forEach((address) => {
+                            content += address + '<br />';
+                        });
+                        content += '<br />data from foursquare.com'
+                    }
                     infowindow.setContent('<div>' + content + '</div>');
                 });
             } else {
@@ -129,14 +136,10 @@ class MarkerList extends Component {
             }
         })(marker));
 
-        // TODO: extend bounds with foreach
-        // bounds.extend(marker.position)
-        // map.fitBounds(this.bounds);
     }
 
     //adapted from https://stackoverflow.com/a/2731781
     listClicked = (value) => {
-        // this.fetchData();
         let { markerLocations } = this.state;
         let { google } = this.props;
         const el = markerLocations.filter((marker) => {
