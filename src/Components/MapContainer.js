@@ -80,11 +80,13 @@ class MapContainer extends Component {
                         type="text"
                         value={this.state.query}
                         onChange={(event) => this.updateQuery(event.target.value)}
-
+                        role="search"
                         placeholder="Search here" />
                 </div>
                 <div id="filter-locations">
-                    <ul id="filter-this">
+                    <ul
+                        id="filter-this"
+                        aria-label="locations list">
                     </ul>
                 </div>
             <div id="map" />
